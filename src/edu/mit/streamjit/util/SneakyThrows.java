@@ -45,7 +45,7 @@ public final class SneakyThrows {
 	 */
 	@SuppressWarnings("deprecation")
 	public static RuntimeException sneakyThrow(Throwable t) {
-		Thread.currentThread().stop(t);
+		//Thread.currentThread().stop(t);
 		throw new AssertionError();
 	}
 }
