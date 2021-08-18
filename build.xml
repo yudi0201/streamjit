@@ -127,7 +127,7 @@ xmlns:if="ant:if" xmlns:unless="ant:unless"
 	</target>
 
 	<target name="test" depends="jar">
-		<java classname="edu.mit.streamjit.test.apps.AlgoTradingStreamjit.java" fork="true">
+		<java classname="edu.mit.streamjit.test.apps.AlgoTradingStreamjit" fork="true">
 			<arg value="--include-attribute=SANITY"/>
 			<arg value="--include-attribute=REGRESSION"/>
 			<classpath>
