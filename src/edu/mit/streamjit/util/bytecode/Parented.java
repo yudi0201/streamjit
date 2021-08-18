@@ -19,33 +19,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode;
 
 /**
- * Throws checked exceptions as if unchecked.
+ * Implementations of this interface can be logically associated with a parent
+ * object.  Parented objects have at most one parent, but may have no parent.
+ * The parent may be fixed for the life of the object, or may change.
+ *
+ * This interface deliberately does not provide a method for setting the parent.
+ * How the parent is set is up to the implementor of the parent and parented
+ * classes.
  * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * @since 4/12/2013
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
-
+public interface Parented<P> {
 	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
-	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
-	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
+	 * Returns this object's parent, or null if this object has no parent.
+	 * @return this object's parent, or null if this object has no parent
 	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
-	}
+	public P getParent();
 }

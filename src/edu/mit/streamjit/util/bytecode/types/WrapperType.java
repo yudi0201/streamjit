@@ -19,33 +19,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode.types;
+
+import static com.google.common.base.Preconditions.*;
+import com.google.common.primitives.Primitives;
+import edu.mit.streamjit.util.bytecode.Klass;
 
 /**
- * Throws checked exceptions as if unchecked.
+ * A wrapper type.  (Note that java.lang.Void is not considered a wrapper type
+ * because void is not considered a primitive type.)
  * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * @since 4/9/2013
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
+public final class WrapperType extends ReferenceType {
+	WrapperType(Klass klass) {
+		super(klass);
+		Class<?> backer = klass.getBackingClass();
+		checkArgument(backer != null && Primitives.isWrapperType(backer) && !backer.equals(Void.class),
+				"not a wrapper type: %s", klass);
+	}
 
-	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
-	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
-	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
-	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
+	public PrimitiveType unwrap() {
+		//Wrapper types are always backed by Classes.
+		return getTypeFactory().getPrimitiveType(getModule().getKlass(Primitives.unwrap(getKlass().getBackingClass())));
 	}
 }

@@ -19,33 +19,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode;
+
+import edu.mit.streamjit.util.bytecode.types.RegularType;
 
 /**
- * Throws checked exceptions as if unchecked.
+ * An Argument represents an argument to a Method.
  * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * @since 3/6/2013
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
+public class Argument extends Value implements Parented<Method> {
+	private final Method parent;
+	public Argument(Method parent, RegularType type) {
+		super(type);
+		this.parent = parent;
+	}
+	public Argument(Method parent, RegularType type, String name) {
+		super(type, name);
+		this.parent = parent;
+	}
 
-	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
-	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
-	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
-	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
+	public boolean isReceiver() {
+		return parent.hasReceiver() && parent.arguments().indexOf(this) == 0;
+	}
+
+	@Override
+	public Method getParent() {
+		return parent;
+	}
+
+	@Override
+	public RegularType getType() {
+		return (RegularType)super.getType();
+	}
+
+	@Override
+	public String toString() {
+		if (getName() != null)
+			return getName();
+		return getClass().getSimpleName()+"@"+hashCode();
 	}
 }

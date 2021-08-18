@@ -56,7 +56,7 @@ public final class FMRadio {
 	private FMRadio() {}
 
 	public static void main(String[] args) throws InterruptedException {
-		Benchmarker.runBenchmarks(new FMRadioBenchmarkProvider(), new DebugStreamCompiler()).get(0).print(System.out);
+		Benchmarker.runBenchmarks(new FMRadioBenchmarkProvider(), new DebugStreamCompiler()).get(2).print(System.out);
 	}
 
 	@ServiceProvider(BenchmarkProvider.class)

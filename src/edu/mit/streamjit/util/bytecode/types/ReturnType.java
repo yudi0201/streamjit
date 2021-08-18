@@ -19,33 +19,52 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode.types;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import edu.mit.streamjit.util.bytecode.Klass;
+import edu.mit.streamjit.util.bytecode.Module;
 
 /**
- * Throws checked exceptions as if unchecked.
+ * A ReturnType is a type that can be used as the return type of a method; that
+ * is, a RegularType or void.
  * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * @since 4/7/2013
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
+public abstract class ReturnType extends Type {
+	private final Klass klass;
+	ReturnType(Klass klass) {
+		this.klass = checkNotNull(klass);
+	}
+
+	public Klass getKlass() {
+		return klass;
+	}
 
 	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
-	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
-	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
+	 * Returns this type's module.  All ReturnTypes implicitly belong to a Module (the Module their Klass
+	 * belongs to).
+	 * @return the Module this ReturnType belongs to
 	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
+	@Override
+	public Module getModule() {
+		return getKlass().getParent();
+	}
+
+	/**
+	 * Returns this type's TypeFactory.  All ReturnTypes implicitly have a
+	 * TypeFactory (the TypeFactory of the Module they belong to)
+	 * @return the TypeFactory of the Module this ReturnType belongs to
+	 */
+	@Override
+	public TypeFactory getTypeFactory() {
+		return getModule().types();
+	}
+
+	public abstract String getDescriptor();
+
+	@Override
+	public String toString() {
+		return klass.getName();
 	}
 }

@@ -19,33 +19,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode;
+
+import edu.mit.streamjit.util.bytecode.types.Type;
 
 /**
- * Throws checked exceptions as if unchecked.
- * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * An uninitialized or otherwise unimportant value.  Used for the this parameter
+ * inside constructors and for uninitialized objects on the operand stack (after
+ * a new opcode but before the constructor call), and possibly other places.
+ *
+ * Has the type of the object being initialized.
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
-
-	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
-	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
-	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
-	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
+public final class UninitializedValue extends Value {
+	public UninitializedValue(Type type, String name) {
+		super(type, name);
 	}
 }

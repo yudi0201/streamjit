@@ -19,33 +19,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode.types;
+
+import edu.mit.streamjit.util.bytecode.Module;
 
 /**
- * Throws checked exceptions as if unchecked.
+ * The types of Values.
  * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * @since 3/6/2013
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
+public abstract class Type {
+	Type() {}
+
+	public abstract Module getModule();
+	public abstract TypeFactory getTypeFactory();
 
 	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
+	 * Tests if this Type is a subtype of the given Type.
 	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
+	 * The subtype relation is reflexive and transitive, but not symmetric.
 	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
+	 * By default, a Type is a subtype of another iff they are the same type,
+	 * but subclasses can override this.
+	 * @param other the type to compare against (must not be null)
+	 * @return true iff this type is a subtype of the other type
 	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
+	public boolean isSubtypeOf(Type other) {
+		return equals(other);
 	}
+
+	/**
+	 * Returns the category of this type, the number of local variables required
+	 * to store it.
+	 *
+	 * All regular types are category 1 types except long and double, which are
+	 * category 2 types.  The null type is a category 1 type.
+	 *
+	 * Other types do not have a category and will throw
+	 * UnsupportedOperationException.
+	 * @return this type's category
+	 */
+	public abstract int getCategory();
 }

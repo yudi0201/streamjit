@@ -29,11 +29,6 @@ xmlns:if="ant:if" xmlns:unless="ant:unless"
 		<mkdir dir="lib/doc"/>
 		<mkdir dir="lib/src"/>
 
-		<!-- use a local bytecodelib jar if available -->
-		<copy file="../bytecodelib/build/jar/bytecodelib.jar"
-			  tofile="lib/bytecodelib.jar"
-			  failonerror="false" quiet="true" />
-
 		<!-- the asm download needs to be unpacked, so skipexisting isn't
 			 enough to prevent executing it repeatedly -->
 		<condition property="getasm">
@@ -77,13 +72,13 @@ xmlns:if="ant:if" xmlns:unless="ant:unless"
 			 dest="lib/src/guava-src.jar"
 			 skipexisting="true"/>
 
-		<get src="http://repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/4.5/jopt-simple-4.5.jar"
+		<get src="https://repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/4.5/jopt-simple-4.5.jar"
 			 dest="lib/joptsimple.jar"
 			 skipexisting="true"/>
-		<get src="http://repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/4.5/jopt-simple-4.5-javadoc.jar"
+		<get src="https://repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/4.5/jopt-simple-4.5-javadoc.jar"
 			 dest="lib/doc/joptsimple-doc.jar"
 			 skipexisting="true"/>
-		<get src="http://repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/4.5/jopt-simple-4.5-sources.jar"
+		<get src="https://repo1.maven.org/maven2/net/sf/jopt-simple/jopt-simple/4.5/jopt-simple-4.5-sources.jar"
 			 dest="lib/src/joptsimple-src.jar"
 			 skipexisting="true"/>
 
@@ -105,9 +100,6 @@ xmlns:if="ant:if" xmlns:unless="ant:unless"
 			 dest="lib/sqlitejdbc.jar"
 			 skipexisting="true"/>
 
-		<get src="https://github.com/jbosboom/bytecodelib/releases/download/20150330/bytecodelib.jar"
-			 dest="lib/bytecodelib.jar"
-			 skipexisting="true"/>
 	</target>
 
 	<target name="clean">

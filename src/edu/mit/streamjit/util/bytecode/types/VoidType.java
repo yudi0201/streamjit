@@ -19,33 +19,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode.types;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import edu.mit.streamjit.util.bytecode.Klass;
 
 /**
- * Throws checked exceptions as if unchecked.
+ * The void type.
  * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * @since 4/7/2013
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
+public final class VoidType extends ReturnType {
+	VoidType(Klass klass) {
+		super(klass);
+		checkArgument(klass.getBackingClass().equals(void.class), "%s not VoidType", klass);
+	}
 
-	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
-	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
-	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
-	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
+	@Override
+	public String getDescriptor() {
+		return "V";
+	}
+
+	@Override
+	public int getCategory() {
+		throw new UnsupportedOperationException();
 	}
 }

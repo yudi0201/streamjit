@@ -19,33 +19,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode.types;
+
+import edu.mit.streamjit.util.bytecode.Module;
 
 /**
- * Throws checked exceptions as if unchecked.
+ *
  * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * @since 4/14/2013
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
-
-	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
-	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
-	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
-	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
+public abstract class FieldType extends Type {
+	//The type of primitive or object stored in the field.
+	private final RegularType fieldType;
+	FieldType(RegularType fieldType) {
+		this.fieldType = fieldType;
+	}
+	public RegularType getFieldType() {
+		return fieldType;
+	}
+	@Override
+	public int getCategory() {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public Module getModule() {
+		return fieldType.getModule();
+	}
+	@Override
+	public TypeFactory getTypeFactory() {
+		return fieldType.getTypeFactory();
 	}
 }

@@ -19,33 +19,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode.insts;
+
+import com.google.common.base.Function;
+import static com.google.common.base.Preconditions.*;
+import edu.mit.streamjit.util.bytecode.BasicBlock;
+import edu.mit.streamjit.util.bytecode.Value;
 
 /**
- * Throws checked exceptions as if unchecked.
+ * An unconditional jump.
  * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * @since 4/11/2013
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
+public final class JumpInst extends TerminatorInst {
+	public JumpInst(BasicBlock target) {
+		super(target.getType().getTypeFactory(), 1);
+		setOperand(0, target);
+	}
 
-	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
-	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
-	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
-	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
+	@Override
+	public JumpInst clone(Function<Value, Value> operandMap) {
+		return new JumpInst((BasicBlock)operandMap.apply(getOperand(0)));
+	}
+
+	@Override
+	protected void checkOperand(int i, Value v) {
+		checkArgument(i == 0, i);
+		checkArgument(v instanceof BasicBlock, v.toString());
+		super.checkOperand(i, v);
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s: goto %s", getName(), getOperand(0));
 	}
 }

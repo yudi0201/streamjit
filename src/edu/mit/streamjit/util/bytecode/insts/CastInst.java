@@ -19,33 +19,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode.insts;
+
+import com.google.common.base.Function;
+import edu.mit.streamjit.util.bytecode.Value;
+import edu.mit.streamjit.util.bytecode.types.Type;
 
 /**
- * Throws checked exceptions as if unchecked.
+ *
  * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * @since 4/15/2013
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
+public final class CastInst extends Instruction {
+	public CastInst(Type targetType) {
+		super(targetType, 1);
+	}
+	public CastInst(Type targetType, Value source) {
+		this(targetType);
+		setOperand(0, source);
+	}
 
-	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
-	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
-	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
-	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
+	@Override
+	public CastInst clone(Function<Value, Value> operandMap) {
+		return new CastInst(getType(), operandMap.apply(getOperand(0)));
+	}
+
+	@Override
+	protected void checkOperand(int i, Value v) {
+		//TODO: check the cast is legal/possible
+		super.checkOperand(i, v);
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s (%s) = cast %s to %s",
+				getName(), getType(), getOperand(0).getName(), getType());
 	}
 }

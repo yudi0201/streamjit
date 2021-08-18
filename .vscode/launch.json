@@ -1,0 +1,511 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch AlgoTradingStreamjit",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.AlgoTradingStreamjit",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch MovingAverage",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.MovingAverage",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch IllegalStreamGraphException",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.api.IllegalStreamGraphException",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Configuration",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.impl.common.Configuration",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch ConfigurationEditor",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.impl.common.ConfigurationEditor",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch NIOBuffers",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.impl.common.NIOBuffers",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Compiler",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.impl.compiler.Compiler",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Compiler2",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.impl.compiler2.Compiler2",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch DistributedAppRunner",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.impl.distributed.DistributedAppRunner",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Tester",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.impl.distributed.common.Tester",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch StreamNode",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.impl.distributed.node.StreamNode",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch DebugStreamCompiler",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.impl.interp.DebugStreamCompiler",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Benchmarker",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.Benchmarker",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch StreamFuzzer",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.StreamFuzzer",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Fannkuch",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.Fannkuch",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch MPEG2",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.MPEG2",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch SerpentFull",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.SerpentFull",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch TDE_PP",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.TDE_PP",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch TriangleContainment",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.TriangleContainment",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Vocoder",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.Vocoder",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch BeamFormer1",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.beamformer1.BeamFormer1",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch BitonicSort",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.bitonicsort.BitonicSort",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch ChannelVocoder7",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.channelvocoder7.ChannelVocoder7",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch DCT2",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.dct.DCT2",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch DES2",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.des2.DES2",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch FFT5",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.fft5.FFT5",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch FilterBank6",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.filterbank6.FilterBank6",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch FMRadio",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.apps.fmradio.FMRadio",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch BitReverseRegTest",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.BitReverseRegTest",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch PipelineInference",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.PipelineInference",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reg20130803",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.Reg20130803",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reg20130904_081439_761",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.Reg20130904_081439_761",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reg20130906_043404_467",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.Reg20130906_043404_467",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reg20130906_043404_467_reduced_20131121",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.Reg20130906_043404_467_reduced_20131121",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reg20130906_043404_467_reduced_20131121_again",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.Reg20130906_043404_467_reduced_20131121_again",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reg20130906_080258_900",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.Reg20130906_080258_900",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reg20130906_082636_450",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.Reg20130906_082636_450",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reg20130906_082636_450_reduced_20131120",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.Reg20130906_082636_450_reduced_20131120",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reg20130906_082636_450_reduced_20131126",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.Reg20130906_082636_450_reduced_20131126",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reg20131113_125005_175",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.Reg20131113_125005_175",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reg20131116_094349_939",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.Reg20131116_094349_939",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reg20131116_104433_226",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.Reg20131116_104433_226",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reg20131126_105423_908",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.Reg20131126_105423_908",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reg20131129_095403_915",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.Reg20131129_095403_915",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch StaticFieldUsedInWork",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.regression.StaticFieldUsedInWork",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch HelperFunctionSanity",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.sanity.HelperFunctionSanity",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch IdentitySanity",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.sanity.IdentitySanity",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch PipelineSanity",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.sanity.PipelineSanity",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch ProgrammableJoinerSanity",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.sanity.ProgrammableJoinerSanity",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch StatefulSanity",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.sanity.StatefulSanity",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch ZeroRateJoinerSanity",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.sanity.ZeroRateJoinerSanity",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch ZeroRateSplitterSanity",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.test.sanity.ZeroRateSplitterSanity",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch ConfigGenerator",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.tuner.ConfigGenerator",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch ConfigGenerator2",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.tuner.ConfigGenerator2",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch OfflineTuner",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.tuner.OfflineTuner",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch RunApp",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.tuner.RunApp",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch RunApp2",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.tuner.RunApp2",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch TCPTuner",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.tuner.TCPTuner",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch ConcurrentPeekableQueue",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.util.ConcurrentPeekableQueue",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch GeneralBinarySearch",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.util.GeneralBinarySearch",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Affinity",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.util.affinity.Affinity",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch IntrusiveList",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.util.bytecode.IntrusiveList",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch Klass",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.util.bytecode.Klass",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch KlassUnresolver",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.util.bytecode.KlassUnresolver",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch MethodUnresolver",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.util.bytecode.MethodUnresolver",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch ModuleClassLoader",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.util.bytecode.ModuleClassLoader",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch ILPSolver",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.util.ilpsolve.ILPSolver",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayJsonifierFactory",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.util.json.ArrayJsonifierFactory",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch PrimitiveJsonifierFactory",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.util.json.PrimitiveJsonifierFactory",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch SerializableJsonifierFactory",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.util.json.SerializableJsonifierFactory",
+            "projectName": "streamjit_6c3e3048"
+        },
+        {
+            "type": "java",
+            "name": "Launch ToStringJsonifierFactory",
+            "request": "launch",
+            "mainClass": "edu.mit.streamjit.util.json.ToStringJsonifierFactory",
+            "projectName": "streamjit_6c3e3048"
+        }
+    ]
+}

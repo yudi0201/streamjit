@@ -19,33 +19,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode;
+
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+import java.util.Arrays;
+import java.util.Set;
 
 /**
- * Throws checked exceptions as if unchecked.
+ * Represents an access kind.
  * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * @since 4/3/2013
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
+public enum Access {
+	PUBLIC(Modifier.PUBLIC), PROTECTED(Modifier.PROTECTED),
+	PACKAGE_PRIVATE(), PRIVATE(Modifier.PRIVATE);
+	private static final ImmutableSet<Modifier> ACCESS_MODIFIERS =
+			Sets.immutableEnumSet(Modifier.PUBLIC, Modifier.PROTECTED, Modifier.PRIVATE);
+	private final ImmutableSet<Modifier> modifiers;
+	private Access(Modifier... modifiers) {
+		this.modifiers = Sets.immutableEnumSet(Arrays.asList(modifiers));
+	}
 
-	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
-	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
-	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
-	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
+	public ImmutableSet<Modifier> modifiers() {
+		return modifiers;
+	}
+
+	public static Access fromModifiers(Set<Modifier> modifiers) {
+		Set<Modifier> active = Sets.intersection(allAccessModifiers(), modifiers);
+		for (Access a : values())
+			if (active.equals(a.modifiers()))
+				return a;
+		throw new IllegalArgumentException("bad access modifiers: "+active);
+	}
+
+	public static ImmutableSet<Modifier> allAccessModifiers() {
+		return ACCESS_MODIFIERS;
 	}
 }

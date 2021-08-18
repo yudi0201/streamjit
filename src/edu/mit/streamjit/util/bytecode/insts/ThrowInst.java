@@ -19,33 +19,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode.insts;
+
+import com.google.common.base.Function;
+import static com.google.common.base.Preconditions.*;
+import edu.mit.streamjit.util.bytecode.Value;
 
 /**
- * Throws checked exceptions as if unchecked.
+ * Throws an exception.
+ *
+ * Note that due to incomplete exception handling support, this instruction
+ * never has any successors even if it would be caught by an exception handler
+ * in the same method.
  * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * @since 4/18/2013
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
+public final class ThrowInst extends TerminatorInst {
+	public ThrowInst(Value exception) {
+		super(exception.getType().getTypeFactory(), 1);
+		setOperand(0, exception);
+	}
 
-	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
-	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
-	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
-	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
+	@Override
+	public ThrowInst clone(Function<Value, Value> operandMap) {
+		return new ThrowInst(operandMap.apply(getOperand(0)));
+	}
+
+	@Override
+	protected void checkOperand(int i, Value v) {
+		checkArgument(v.getType().isSubtypeOf(getType().getTypeFactory().getType(Throwable.class)));
+		super.checkOperand(i, v);
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s: throw %s", getName(), getOperand(0).getName());
 	}
 }

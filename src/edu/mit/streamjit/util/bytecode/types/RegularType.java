@@ -19,33 +19,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode.types;
+
+import static com.google.common.base.Preconditions.*;
+import edu.mit.streamjit.util.bytecode.Klass;
 
 /**
- * Throws checked exceptions as if unchecked.
+ * A RegularType is a primitive or reference type (i.e., any non-void return
+ * type).
  * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * @since 3/6/2013
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
+public abstract class RegularType extends ReturnType {
+	RegularType(Klass klass) {
+		super(klass);
+		checkArgument(!"void".equals(klass.getName()), "not a RegularType: %s", klass);
+	}
 
-	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
-	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
-	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
-	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
+	@Override
+	public int getCategory() {
+		//PrimitiveType overrides this for long and double.
+		return 1;
 	}
 }

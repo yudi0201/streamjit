@@ -19,33 +19,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode.types;
+
+import edu.mit.streamjit.util.bytecode.Module;
 
 /**
- * Throws checked exceptions as if unchecked.
+ * The type of a BasicBlock.  Currently, this is a singleton type.  (We might
+ * choose to make it per-Method at some point to prevent branch instructions
+ * from branching to blocks in other methods, but as a Value's type is
+ * immutable, that would mean BasicBlocks would be permanently attached to
+ * Functions.  For now we'll preserve the flexibility to transplant BasicBlocks
+ * or create free-floating BasicBlocks before inserting them into a Method.)
  * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * @since 3/6/2013
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
+public final class BasicBlockType extends Type {
+	private final Module module;
+	BasicBlockType(Module module) {
+		this.module = module;
+	}
 
-	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
-	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
-	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
-	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
+	@Override
+	public String toString() {
+		return "BasicBlock";
+	}
+
+	@Override
+	public int getCategory() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Module getModule() {
+		return module;
+	}
+
+	@Override
+	public TypeFactory getTypeFactory() {
+		return getModule().types();
 	}
 }

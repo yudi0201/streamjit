@@ -19,33 +19,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.mit.streamjit.util;
+package edu.mit.streamjit.util.bytecode.types;
+
+import edu.mit.streamjit.util.bytecode.Module;
 
 /**
- * Throws checked exceptions as if unchecked.
+ * The type of null.  While null is a subtype of every reference type, it is not
+ * a subclass of ReferenceType (or even of ReturnType) as it isn't a static type
+ * (i.e., it can't be used in method descriptors).
  * @author Jeffrey Bosboom <jbosboom@csail.mit.edu>
- * @since 1/13/2014
+ * @since 4/11/2013
  */
-public final class SneakyThrows {
-	private SneakyThrows() {}
+public final class NullType extends Type {
+	private final Module parent;
+	NullType(Module parent) {
+		this.parent = parent;
+	}
+	@Override
+	public Module getModule() {
+		return parent;
+	}
+	@Override
+	public TypeFactory getTypeFactory() {
+		return parent.types();
+	}
 
 	/**
-	 * Throws the given Throwable, even if it's a checked exception the caller
-	 * could not otherwise throw.
-	 *
-	 * This method returns RuntimeException to enable "throw sneakyThrow(t);"
-	 * syntax to convince Java's dataflow analyzer that an exception will be
-	 * thrown.
-	 *
-	 * Note that catching sneakythrown exceptions can be difficult as Java will
-	 * complain about attempts to catch checked exceptions that "cannot" be
-	 * thrown from the try-block body.
-	 * @param t the Throwable to throw
-	 * @return never returns
+	 * The null type is a subtype itself and of every reference type and no
+	 * other types.
+	 * @param other {@inheritDoc}
+	 * @return {@inheritDoc}
 	 */
-	@SuppressWarnings("deprecation")
-	public static RuntimeException sneakyThrow(Throwable t) {
-		//Thread.currentThread().stop(t);
-		throw new AssertionError();
+	@Override
+	public boolean isSubtypeOf(Type other) {
+		return other instanceof VoidType || other instanceof ReferenceType;
+	}
+
+	@Override
+	public int getCategory() {
+		return 1;
+	}
+
+	@Override
+	public String toString() {
+		return "<nulltype>";
 	}
 }
