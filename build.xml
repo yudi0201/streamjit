@@ -137,6 +137,9 @@ xmlns:if="ant:if" xmlns:unless="ant:unless"
 				<fileset dir="build/jar">
 					<include name="*.jar"/>
 				</fileset>
+				<fileset dir="src/edu/mit/streamjit/impl/compiler2">
+					<include name="*.java"/>
+				</fileset>
 			</classpath>
 			<assertions>
 				<enable/>
